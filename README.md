@@ -1,0 +1,2 @@
+# minikube-githubactions
+minikube sandbox
