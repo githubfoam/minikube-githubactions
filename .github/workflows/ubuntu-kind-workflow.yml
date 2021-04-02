@@ -18,10 +18,10 @@ jobs:
     - name: "check the runner"
       run: |
         ls -l /usr/local/bin/
-    - name: "Update PATH"
-      run: |
-        echo $PATH
-        echo "::add-path::/home/runner/bin"
+    # - name: "Update PATH"
+    #   run: |
+    #     echo $PATH
+    #     echo "::add-path::/home/runner/bin"
     - name: Install k3d and argo client
       run: |
         make install_k3d
