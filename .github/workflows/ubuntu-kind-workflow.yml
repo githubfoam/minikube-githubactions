@@ -22,7 +22,12 @@ jobs:
     #   run: |
     #     echo $PATH
     #     echo "::add-path::/home/runner/bin"
-    - name: Install k3d and argo client
+    - name: "Install k3d" 
+      run: make install_k3d    
+    - name: "Install argo client"
+      run: make install_argo  
+    - name: Setup local cluster
       run: |
-        make install_k3d
-        make install_argo        
+        make create_cluster
+        make switch_context
+        make create_namespace               
