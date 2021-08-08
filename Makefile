@@ -6,6 +6,9 @@ LATEST_ARGO_WF = $(shell bash -c  "argo list -n $(NAMESPACE) --no-headers -o nam
 
 # Setup
 
+provision-minikube:
+	bash platform/provision-minikube.sh
+
 install_k3d:
 	curl -s https://raw.githubusercontent.com/rancher/k3d/main/install.sh | TAG=v3.0.0 bash
 
