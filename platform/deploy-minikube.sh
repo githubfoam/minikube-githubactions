@@ -14,6 +14,13 @@ apt-get install -y apt-transport-https
 # in order to ensure the kubectl download is valid, add the GPG key for the official Google repository
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 
+#show your system the source for downloading kubectl.
+cat <<EOT | sudo tee /etc/apt/sources.list.d/kubernetes.list
+ deb http://apt.kubernetes.io/ kubernetes-xenial main
+EOT
+
+cat /etc/apt/sources.list.d/kubernetes.list
+
 
 # set -eox pipefail #safety for script
 # if [[ $(egrep -c '(vmx|svm)' /proc/cpuinfo) == 0 ]]; then #check if virtualization is supported on Linux, xenial fails w 0, bionic works w 2

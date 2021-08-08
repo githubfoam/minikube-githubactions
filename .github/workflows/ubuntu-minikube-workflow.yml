@@ -38,7 +38,9 @@ jobs:
         minikube delete #delete the current cluster
         #Delete the existing 'minikube' cluster using: 'minikube delete', or start the existing 'minikube' cluster using: 'minikube start --driver=docker
         # minikube start --driver=docker
-        #minikube start --driver=docker --vm-driver none
+        minikube start --driver=docker --vm-driver none
+        minikube version --short
+        minikube version --components
     # https://jenkins-x.io/v3/admin/platforms/minikube/    
     - name: "deploy jenkins-x"
       run: |
@@ -46,21 +48,21 @@ jobs:
         minikube delete 
         #create a minikube cluster
         minikube start --cpus 4 --memory 8048 --disk-size=100g --addons=ingress --vm=true          
+      
+
+  ubuntu-1604-job:
+    name: "ubuntu-16.04 minikube job"
+    runs-on: ubuntu-16.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: "os fingerprinting"
+      run: hostnamectl status  
+    - name: "Start a minikube cluster"
+      run: |
+        minikube start
+        n=0; until ((n >= 60)); do kubectl -n default get serviceaccount default -o name && break; n=$((n + 1)); sleep 1; done; ((n < 60)) 
     - name: "deploy minikube"
-      run: sudo make deploy-minikube         
-
-  # ubuntu-1604-job:
-  #   name: "ubuntu-16.04 minikube job"
-  #   runs-on: ubuntu-16.04
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - name: "os fingerprinting"
-  #     run: hostnamectl status  
-  #   - name: "Start a minikube cluster"
-  #     run: |
-  #       minikube start
-  #       n=0; until ((n >= 60)); do kubectl -n default get serviceaccount default -o name && break; n=$((n + 1)); sleep 1; done; ((n < 60)) 
-
+      run: sudo make deploy-minikube   
 
   # ubuntu-1804-job:
   #   name: "ubuntu-18.04 minikube job"
