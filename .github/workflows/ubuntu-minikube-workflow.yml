@@ -27,17 +27,17 @@ jobs:
     - name: "check the runner"
       run: |
         ls -l /usr/local/bin/
-    - name: "Start a minikube cluster"
-      run: |
-        minikube start
-        n=0; until ((n >= 60)); do kubectl -n default get serviceaccount default -o name && break; n=$((n + 1)); sleep 1; done; ((n < 60)) 
-        minikube version --components
-        minikube version --short
+    # - name: "Start a minikube cluster"
+    #   run: |
+    #     minikube start
+    #     n=0; until ((n >= 60)); do kubectl -n default get serviceaccount default -o name && break; n=$((n + 1)); sleep 1; done; ((n < 60)) 
+    #     minikube version --components
+    #     minikube version --short
     - name: "run Kubernetes on the local host using containers rather than a virtual machine"
       run: |
         minikube delete #delete the current cluster
         #Delete the existing 'minikube' cluster using: 'minikube delete', or start the existing 'minikube' cluster using: 'minikube start --driver=docker
-        minikube start --driver=docker
+        # minikube start --driver=docker
         #minikube start --driver=docker --vm-driver none
     # https://jenkins-x.io/v3/admin/platforms/minikube/    
     - name: "deploy jenkins-x"
