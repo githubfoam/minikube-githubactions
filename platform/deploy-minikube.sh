@@ -8,6 +8,13 @@ set -o xtrace
 
 
 echo "=============================Install minikube started ============================================================="
+apt-get update -y
+#make sure that your system’s package manager can access packages over HTTPS with apt-transport-https
+apt-get install -y apt-transport-https
+# in order to ensure the kubectl download is valid, add the GPG key for the official Google repository
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+
+
 # set -eox pipefail #safety for script
 # if [[ $(egrep -c '(vmx|svm)' /proc/cpuinfo) == 0 ]]; then #check if virtualization is supported on Linux, xenial fails w 0, bionic works w 2
 #            echo "virtualization is not supported"

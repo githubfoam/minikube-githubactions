@@ -35,7 +35,19 @@ jobs:
         minikube version --short
     - name: "run Kubernetes on the local host using containers rather than a virtual machine"
       run: |
-        minikube start --vm-driver none    
+        minikube delete #delete the current cluster
+        #Delete the existing 'minikube' cluster using: 'minikube delete', or start the existing 'minikube' cluster using: 'minikube start --driver=docker
+        minikube start --driver=docker
+        #minikube start --driver=docker --vm-driver none
+    # https://jenkins-x.io/v3/admin/platforms/minikube/    
+    - name: "deploy jenkins-x"
+      run: |
+        #delete the current cluster
+        minikube delete 
+        #create a minikube cluster
+        minikube start --cpus 4 --memory 8048 --disk-size=100g --addons=ingress --vm=true          
+    - name: "deploy minikube"
+      run: sudo make deploy-minikube         
 
   # ubuntu-1604-job:
   #   name: "ubuntu-16.04 minikube job"
