@@ -34,5 +34,6 @@ jobs:
         # X Exiting due to DRV_NOT_DETECTED: No possible driver was detected. Try specifying --driver, or see https://minikube.sigs.k8s.io/docs/start/
         # minikube start --cpus 4 --memory 8048 --disk-size=100g --addons=ingress --vm=true          
         # Requested cpu count 4 is greater than the available cpus of 2
-        minikube start --driver=docker --cpus 2 --memory 8048 --disk-size=100g --addons=ingress --vm=true 
+        # X Exiting due to RSRC_OVER_ALLOC_MEM: Requested memory allocation 8048MB is more than your system limit 6953MB.
+        minikube start --driver=docker --cpus 2 --memory 6952 --disk-size=100g --addons=ingress --vm=true 
  

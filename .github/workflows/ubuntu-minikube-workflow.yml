@@ -8,7 +8,7 @@ on:
 jobs:
 
   ubuntu-1604-minikube-latest-job:
-    name: "ubuntu-16.04 minikube job"
+    name: "ubuntu-16.04 minikube latest job"
     runs-on: ubuntu-16.04
     steps:
     - uses: actions/checkout@v2
@@ -23,8 +23,11 @@ jobs:
           echo "                 ||----w |                                                         "
           echo "                 ||     ||                                                         "
           echo "===================================================================================="  
+    # * The "docker" driver should not be used with root privileges.
+    # * If you are running minikube within a VM, consider using --driver=none:
     - name: "Build minikube latest cluster"
-      run: sudo make deploy-minikube-latest
+      # run: sudo make deploy-minikube-latest
+      run: make deploy-minikube-latest
 
   ubuntu-1604-minikube-job:
     name: "ubuntu-16.04 minikube job"
@@ -42,5 +45,8 @@ jobs:
           echo "                 ||----w |                                                         "
           echo "                 ||     ||                                                         "
           echo "===================================================================================="  
+    # * The "docker" driver should not be used with root privileges.
+    # * If you are running minikube within a VM, consider using --driver=none:      
     - name: "Build minikube cluster"
-      run: sudo make deploy-minikube
+      # run: sudo make deploy-minikube
+      run: make deploy-minikube
