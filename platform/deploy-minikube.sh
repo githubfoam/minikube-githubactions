@@ -22,7 +22,9 @@ EOT
 cat /etc/apt/sources.list.d/kubernetes.list
 
 apt-get update -y
-apt-get install -yq kubectl socat docker.io
+#The following packages have unmet dependencies:
+#docker.io : Depends: containerd (>= 1.2.6-0ubuntu1~)
+apt-get install -yq kubectl socat docker.io containerd 
 
 # https://minikube.sigs.k8s.io/docs/start/
 # curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64

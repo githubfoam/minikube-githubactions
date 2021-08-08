@@ -31,6 +31,7 @@ jobs:
         #delete the current cluster
         minikube delete 
         #create a minikube cluster
-        minikube start --cpus 4 --memory 8048 --disk-size=100g --addons=ingress --vm=true          
-        #minikube start --driver=docker --cpus 4 --memory 8048 --disk-size=100g --addons=ingress --vm=true 
+        # X Exiting due to DRV_NOT_DETECTED: No possible driver was detected. Try specifying --driver, or see https://minikube.sigs.k8s.io/docs/start/
+        # minikube start --cpus 4 --memory 8048 --disk-size=100g --addons=ingress --vm=true          
+        minikube start --driver=docker --cpus 4 --memory 8048 --disk-size=100g --addons=ingress --vm=true 
  

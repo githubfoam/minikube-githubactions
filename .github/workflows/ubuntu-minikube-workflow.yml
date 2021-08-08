@@ -7,8 +7,26 @@ on:
 
 jobs:
 
+  ubuntu-1604-minikube-latest-job:
+    name: "ubuntu-16.04 minikube job"
+    runs-on: ubuntu-16.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: "os fingerprinting"
+      run: |
+          echo "===================================================================================="
+                        hostnamectl status
+          echo "===================================================================================="
+          echo "         \   ^__^                                                                  "
+          echo "          \  (oo)\_______                                                          "
+          echo "             (__)\       )\/\                                                      "
+          echo "                 ||----w |                                                         "
+          echo "                 ||     ||                                                         "
+          echo "===================================================================================="  
+    - name: "Build minikube latest cluster"
+      run: sudo make deploy-minikube-latest
 
-  ubuntu-1604-job:
+  ubuntu-1604-minikube-job:
     name: "ubuntu-16.04 minikube job"
     runs-on: ubuntu-16.04
     steps:
