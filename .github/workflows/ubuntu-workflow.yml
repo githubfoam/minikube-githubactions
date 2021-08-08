@@ -126,4 +126,5 @@ jobs:
         minikube start
         n=0; until ((n >= 60)); do kubectl -n default get serviceaccount default -o name && break; n=$((n + 1)); sleep 1; done; ((n < 60)) 
         minikube version --short
-        minikube version --components
+        # Error: unknown flag: --components
+        # minikube version --components
