@@ -36,7 +36,10 @@ jobs:
         minikube kubectl -- get po -A
     - name: "dashboard"
       run: |
-        minikube dashboard
+        # xdg-open: no method available for opening 'http://127.0.0.1:33631/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/'
+        # X Exiting due to HOST_BROWSER: failed to open browser: exit status 3
+        # minikube dashboard
+        minikube dashboard &
     - name: "Deploy applications"
       run: |
         # Create a sample deployment and expose it on port 8080
