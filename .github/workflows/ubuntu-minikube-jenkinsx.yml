@@ -1,4 +1,4 @@
-name: "Ubuntu minikube CI workflow"
+name: "Ubuntu minikube jenkins-x CI workflow"
 
 
 on:
@@ -8,9 +8,10 @@ on:
 jobs:
 
 
-  ubuntu-1604-job:
-    name: "ubuntu-16.04 minikube job"
-    runs-on: ubuntu-16.04
+
+  ubuntu-latest-minikube-jenkinsx-job:
+    name: "ubuntu-latest minikube job"
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: "os fingerprinting"
@@ -23,6 +24,13 @@ jobs:
           echo "             (__)\       )\/\                                                      "
           echo "                 ||----w |                                                         "
           echo "                 ||     ||                                                         "
-          echo "===================================================================================="  
-    - name: "Build minikube cluster"
-      run: sudo make deploy-minikube
+          echo "===================================================================================="
+    # https://jenkins-x.io/v3/admin/platforms/minikube/    
+    - name: "deploy jenkins-x"
+      run: |
+        #delete the current cluster
+        minikube delete 
+        #create a minikube cluster
+        minikube start --cpus 4 --memory 8048 --disk-size=100g --addons=ingress --vm=true          
+        #minikube start --driver=docker --cpus 4 --memory 8048 --disk-size=100g --addons=ingress --vm=true 
+ 

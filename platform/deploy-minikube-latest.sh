@@ -7,7 +7,7 @@ set -o xtrace
 # set -eox pipefail #safety for script
 
 
-echo "=============================Install minikube started ============================================================="
+echo "=============================Install minikube latest sstarted ============================================================="
 apt-get update -y
 #make sure that your system’s package manager can access packages over HTTPS with apt-transport-https
 apt-get install -y apt-transport-https
@@ -25,15 +25,8 @@ apt-get update -y
 apt-get install -yq kubectl socat docker.io
 
 # https://minikube.sigs.k8s.io/docs/start/
-# curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-# sudo install minikube-linux-amd64 /usr/local/bin/minikube
-
-
-#use curl to download the program’s binary
-curl -Lo minikube https://storage.googleapis.com/minikube/releases/v0.28.0/minikube-linux-amd64
-chmod +x minikube
-cp minikube /usr/local/bin/
-rm minikube
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
 
 minikube start --driver=docker
 minikube version --short
