@@ -1,4 +1,4 @@
-name: "Ubuntu minikube CI workflow"
+name: "Ubuntu build minikube CI workflow"
 
 
 on:
