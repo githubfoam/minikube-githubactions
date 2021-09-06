@@ -27,7 +27,7 @@ jobs:
           echo "                 ||     ||                                                         "
           echo "===================================================================================="
     # https://minikube.sigs.k8s.io/docs/start/
-    - name: "Start a minikube cluster"
+    - name: "Step 1 - Start Minikube"
       run: |
         minikube start
         n=0; until ((n >= 60)); do kubectl -n default get serviceaccount default -o name && break; n=$((n + 1)); sleep 1; done; ((n < 60)) 
@@ -38,16 +38,31 @@ jobs:
       run: |
         kubectl cluster-info
         kubectl get nodes
+    - name: "Step 2 - Cluster Info"
+      run: |
+        kubectl cluster-info
+        kubectl get nodes     
+    - name: "Step 3 - Deploy Containers"
+      run: |
         kubectl create deployment first-deployment --image=katacoda/docker-http-server
-        kubectl get pods
+        sleep 20
+        kubectl get pods 
+        # NodePort, that provides a dynamic port to a container
         kubectl expose deployment first-deployment --port=80 --type=NodePort
+        # finds the allocated port and executes a HTTP request.
         export PORT=$(kubectl get svc first-deployment -o go-template='{{range.spec.ports}}{{if .nodePort}}{{.nodePort}}{{"\n"}}{{end}}{{end}}')
-        # echo "Accessing host01:$PORT"
-        # curl host01:$PORT
-        # kubectl get po -A
-        # # minikube can download the appropriate version of kubectl
-        # minikube kubectl -- get po -A
-
+        echo $PORT
+        # echo "Accessing localhost:$PORT"
+        # curl localhost:$PORT      
+        netstat -alun | grep  $PORT 
+    - name: "Step 4 - Dashboard"
+      run: |
+        #Enable the dashboard
+        minikube addons enable dashboard
+        kubectl apply -f /opt/kubernetes-dashboard.yaml
+        sleep 20
+        kubectl get pods -n kubernetes-dashboard -w
+        netstat -alun | grep 3000
         
   # ubuntu-latest-job:
   #   name: "ubuntu-latest minikube job"
