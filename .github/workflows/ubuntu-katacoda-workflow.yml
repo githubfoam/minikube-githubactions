@@ -37,10 +37,6 @@ jobs:
         sleep 25
         minikube version --short
         minikube version --components
-    - name: "Interact with your cluster"
-      run: |
-        kubectl cluster-info
-        kubectl get nodes
     - name: "Step 2 - Cluster Info"
       run: |
         kubectl cluster-info
@@ -66,7 +62,7 @@ jobs:
         sleep 20
         kubectl get pods -n kubernetes-dashboard -w
 
-  ubuntu-latest-job-scenario1:
+  ubuntu-latest-job-scenario2:
     name: "Start containers using Kubectl  - ubuntu-latest minikube job"
     runs-on: ubuntu-latest
     steps:
@@ -96,6 +92,21 @@ jobs:
         kubectl run http --image=katacoda/docker-http-server:latest --replicas=1
         kubectl get deployments
         kubectl describe deployment http
+    - name: "Step 3 - Kubectl Expose"
+      run: |
+        kubectl expose deployment http --external-ip="172.17.0.35" --port=8000 --target-port=80
+        curl http://172.17.0.35:8000       
+    - name: "Step 4 - Kubectl Run and Expose"
+      run: |
+        kubectl run httpexposed --image=katacoda/docker-http-server:latest --replicas=1 --port=80 --hostport=8001
+        curl http://172.17.0.35:8001
+        docker ps | grep httpexposed 
+    - name: "Step 5 - Scale Containers"
+      run: |
+        kubectl scale --replicas=3 deployment http
+        kubectl get pods
+        kubectl describe svc http
+        curl http://172.17.0.35:8000        
 
   # ubuntu-latest-job:
   #   name: "ubuntu-latest minikube job"
