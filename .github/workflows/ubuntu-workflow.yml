@@ -37,9 +37,16 @@ jobs:
     - name: "Interact with your cluster"
       run: |
         kubectl cluster-info
-        kubectl get po -A
-        # minikube can download the appropriate version of kubectl
-        minikube kubectl -- get po -A
+        kubectl get nodes
+        kubectl create deployment first-deployment --image=katacoda/docker-http-server
+        kubectl get pods
+        kubectl expose deployment first-deployment --port=80 --type=NodePort
+        export PORT=$(kubectl get svc first-deployment -o go-template='{{range.spec.ports}}{{if .nodePort}}{{.nodePort}}{{"\n"}}{{end}}{{end}}')
+        # echo "Accessing host01:$PORT"
+        # curl host01:$PORT
+        # kubectl get po -A
+        # # minikube can download the appropriate version of kubectl
+        # minikube kubectl -- get po -A
 
         
   # ubuntu-latest-job:
