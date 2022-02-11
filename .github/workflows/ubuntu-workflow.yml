@@ -60,6 +60,14 @@ jobs:
         # Alternatively, use kubectl to forward the port
         # kubectl port-forward service/hello-minikube 7080:8080
         # http://localhost:7080
+      # CIS_Kubernetes_V1.20_Benchmark_v1.0.0_PDF
+    - name: "1.1.1 CIS_Kubernetes_V1.20_Benchmark_v1.0.0"
+      run: |
+        # Create a sample deployment and expose it on port 8080      
+        echo "CIS_Kubernetes_V1.20_Benchmark_v1.0.0"  
+        echo "1.1.1 Ensure that the API server pod specification file permissions are set to 644 or more restrictive (Automated)"
+        echo "Audit"
+        stat -c %a /etc/kubernetes/manifests/kube-apiserver.yaml
 
 
   ubuntu-2004-job:
@@ -84,6 +92,31 @@ jobs:
         n=0; until ((n >= 60)); do kubectl -n default get serviceaccount default -o name && break; n=$((n + 1)); sleep 1; done; ((n < 60)) 
         minikube version --short
         minikube version --components
+    - name: "Interact with your cluster"
+      run: |
+        kubectl get po -A
+        # minikube can download the appropriate version of kubectl
+        minikube kubectl -- get po -A
+    - name: "dashboard"
+      run: |
+        # xdg-open: no method available for opening 'http://127.0.0.1:33631/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/'
+        # X Exiting due to HOST_BROWSER: failed to open browser: exit status 3
+        # minikube dashboard
+        #/usr/bin/xdg-open: 869: www-browser: not found
+        minikube dashboard &
+    - name: "Deploy applications"
+      run: |
+        # Create a sample deployment and expose it on port 8080
+        kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.4
+        kubectl expose deployment hello-minikube --type=NodePort --port=8080        
+        sleep 10
+        kubectl get services hello-minikube
+        # minikube launch a web browser
+        #xdg-open: no method available for opening 'http://192.168.49.2:30792
+        minikube service hello-minikube &
+        # Alternatively, use kubectl to forward the port
+        # kubectl port-forward service/hello-minikube 7080:8080
+        # http://localhost:7080        
 
   ubuntu-1804-job:
     name: "ubuntu-18.04 minikube job"
@@ -107,6 +140,31 @@ jobs:
         n=0; until ((n >= 60)); do kubectl -n default get serviceaccount default -o name && break; n=$((n + 1)); sleep 1; done; ((n < 60)) 
         minikube version --short
         minikube version --components
+    - name: "Interact with your cluster"
+      run: |
+        kubectl get po -A
+        # minikube can download the appropriate version of kubectl
+        minikube kubectl -- get po -A
+    - name: "dashboard"
+      run: |
+        # xdg-open: no method available for opening 'http://127.0.0.1:33631/api/v1/namespaces/kubernetes-dashboard/services/http:kubernetes-dashboard:/proxy/'
+        # X Exiting due to HOST_BROWSER: failed to open browser: exit status 3
+        # minikube dashboard
+        #/usr/bin/xdg-open: 869: www-browser: not found
+        minikube dashboard &
+    - name: "Deploy applications"
+      run: |
+        # Create a sample deployment and expose it on port 8080
+        kubectl create deployment hello-minikube --image=k8s.gcr.io/echoserver:1.4
+        kubectl expose deployment hello-minikube --type=NodePort --port=8080        
+        sleep 10
+        kubectl get services hello-minikube
+        # minikube launch a web browser
+        #xdg-open: no method available for opening 'http://192.168.49.2:30792
+        minikube service hello-minikube &
+        # Alternatively, use kubectl to forward the port
+        # kubectl port-forward service/hello-minikube 7080:8080
+        # http://localhost:7080        
 
 # https://github.com/actions/virtual-environments
 # deprecated
