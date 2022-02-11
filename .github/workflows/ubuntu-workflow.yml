@@ -3,9 +3,9 @@ name: "Ubuntu minikube CI workflow"
 
 on:
   push:
-    branches: [ main ]
-  schedule:
-      - cron:  '0 0 1 * *' ##execution of a task in the first minute of the month 
+    branches: [ test ]
+  # schedule:
+  #     - cron:  '0 0 1 * *' ##execution of a task in the first minute of the month 
       
       
 jobs:
