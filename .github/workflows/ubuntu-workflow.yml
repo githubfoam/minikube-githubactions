@@ -69,6 +69,7 @@ jobs:
         echo "Audit"
         minikube config view
         kubectl get namespaces
+        kubectl --namespace kube-system get pods
         # stat -c %a /etc/kubernetes/manifests/kube-apiserver.yaml
 
 
