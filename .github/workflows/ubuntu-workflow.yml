@@ -70,6 +70,7 @@ jobs:
         minikube config view
         kubectl get namespaces
         kubectl --namespace kube-system get pods
+        minikube ssh -v 7
         # stat -c %a /etc/kubernetes/manifests/kube-apiserver.yaml
 
 
