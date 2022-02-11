@@ -67,6 +67,7 @@ jobs:
         echo "CIS_Kubernetes_V1.20_Benchmark_v1.0.0"  
         echo "1.1.1 Ensure that the API server pod specification file permissions are set to 644 or more restrictive (Automated)"
         echo "Audit"
+        minikube config view
         stat -c %a /etc/kubernetes/manifests/kube-apiserver.yaml
 
 

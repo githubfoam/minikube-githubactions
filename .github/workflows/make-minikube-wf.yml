@@ -29,24 +29,24 @@ jobs:
       # run: sudo make deploy-minikube-latest
       run: make deploy-minikube-latest
 
-#  minikube-ubuntu-1804-job:
-#     name: "minikube ubuntu-18.04 job"
-#     runs-on: ubuntu-18.04
-#     steps:
-#     - uses: actions/checkout@v2
-#     - name: "os fingerprinting"
-#       run: |
-#           echo "===================================================================================="
-#                         hostnamectl status
-#           echo "===================================================================================="
-#           echo "         \   ^__^                                                                  "
-#           echo "          \  (oo)\_______                                                          "
-#           echo "             (__)\       )\/\                                                      "
-#           echo "                 ||----w |                                                         "
-#           echo "                 ||     ||                                                         "
-#           echo "===================================================================================="  
-#     # * The "docker" driver should not be used with root privileges.
-#     # * If you are running minikube within a VM, consider using --driver=none:      
-#     - name: "Build minikube cluster"
-#       # run: sudo make deploy-minikube
-#       run: make deploy-minikube
+ minikube-ubuntu-1804-job:
+    name: "minikube ubuntu-18.04 job"
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v2
+    - name: "os fingerprinting"
+      run: |
+          echo "===================================================================================="
+                        hostnamectl status
+          echo "===================================================================================="
+          echo "         \   ^__^                                                                  "
+          echo "          \  (oo)\_______                                                          "
+          echo "             (__)\       )\/\                                                      "
+          echo "                 ||----w |                                                         "
+          echo "                 ||     ||                                                         "
+          echo "===================================================================================="  
+    # * The "docker" driver should not be used with root privileges.
+    # * If you are running minikube within a VM, consider using --driver=none:      
+    - name: "Build minikube cluster"
+      # run: sudo make deploy-minikube
+      run: make deploy-minikube
