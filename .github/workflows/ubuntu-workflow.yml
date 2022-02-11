@@ -108,26 +108,28 @@ jobs:
         minikube version --short
         minikube version --components
 
-  ubuntu-1604-job:
-    name: "ubuntu-16.04 minikube job"
-    runs-on: ubuntu-16.04
-    steps:
-    - uses: actions/checkout@v2
-    - name: "os fingerprinting"
-      run: |
-          echo "===================================================================================="
-                        hostnamectl status
-          echo "===================================================================================="
-          echo "         \   ^__^                                                                  "
-          echo "          \  (oo)\_______                                                          "
-          echo "             (__)\       )\/\                                                      "
-          echo "                 ||----w |                                                         "
-          echo "                 ||     ||                                                         "
-          echo "===================================================================================="  
-    - name: "Start a minikube cluster"
-      run: |
-        minikube start
-        n=0; until ((n >= 60)); do kubectl -n default get serviceaccount default -o name && break; n=$((n + 1)); sleep 1; done; ((n < 60)) 
-        minikube version --short
-        # Error: unknown flag: --components
-        # minikube version --components
+# https://github.com/actions/virtual-environments
+# deprecated
+  # ubuntu-1604-job:
+  #   name: "ubuntu-16.04 minikube job"
+  #   runs-on: ubuntu-16.04
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - name: "os fingerprinting"
+  #     run: |
+  #         echo "===================================================================================="
+  #                       hostnamectl status
+  #         echo "===================================================================================="
+  #         echo "         \   ^__^                                                                  "
+  #         echo "          \  (oo)\_______                                                          "
+  #         echo "             (__)\       )\/\                                                      "
+  #         echo "                 ||----w |                                                         "
+  #         echo "                 ||     ||                                                         "
+  #         echo "===================================================================================="  
+  #   - name: "Start a minikube cluster"
+  #     run: |
+  #       minikube start
+  #       n=0; until ((n >= 60)); do kubectl -n default get serviceaccount default -o name && break; n=$((n + 1)); sleep 1; done; ((n < 60)) 
+  #       minikube version --short
+  #       # Error: unknown flag: --components
+  #       # minikube version --components
