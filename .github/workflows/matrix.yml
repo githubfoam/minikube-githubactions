@@ -1,0 +1,30 @@
+name: "matrix minikube CI workflow"
+
+
+on:
+  push:
+    branches: [ test ]
+  # schedule:
+  #     - cron:  '0 0 1 * *' ##execution of a task in the first minute of the month 
+      
+      
+jobs:
+
+  rootless-docker-ubuntu-latest-job:
+    name: " rootless docker ubuntu-latest minikube job"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: "os fingerprinting"
+      run: |
+          echo "===================================================================================="
+                        hostnamectl status
+          echo "===================================================================================="
+          echo "         \   ^__^                                                                  "
+          echo "          \  (oo)\_______                                                          "
+          echo "             (__)\       )\/\                                                      "
+          echo "                 ||----w |                                                         "
+          echo "                 ||     ||                                                         "
+          echo "===================================================================================="
+    - name: Validate Minikube
+      run: minikube status | grep Running
