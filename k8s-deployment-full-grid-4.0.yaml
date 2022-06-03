@@ -295,11 +295,11 @@ spec:
               mountPath: /dev/shm
           resources:
             requests:
-              memory: "2Gi"
-              cpu: "2"
+              memory: "1Gi"
+              cpu: "1"
             limits:
-              memory: "2Gi"
-              cpu: "2"
+              memory: "1Gi"
+              cpu: "1"
       volumes:
         - name: dshm
           emptyDir: { "medium": "Memory" }
