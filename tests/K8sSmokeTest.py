@@ -9,7 +9,7 @@ except ImportError:
     from urllib.request import urlopen
 
 SELENIUM_GRID_URL = sys.argv[1]
-max_attempts = 12
+max_attempts = 25
 sleep_interval = 15
 
 def get_grid_status():
