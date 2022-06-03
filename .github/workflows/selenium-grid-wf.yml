@@ -51,7 +51,8 @@ jobs:
           echo "environment-kubeconfig:" ${KUBECONFIG}   
       - name: "Deploy Grid 4 on minikube"
         # run: kubectl apply -f k8s-deployment-full-grid.yaml 
-        run: kubectl apply -f k8s-deployment-full-grid-4.0.0-alpha-7-prerelease-20201009.yaml 
+        # run: kubectl apply -f k8s-deployment-full-grid-4.0.0-alpha-7-prerelease-20201009.yaml 
+        run: kubectl apply -f k8s-deployment-full-grid-4.0.yaml 
       - name: "Expose Router service"
         run: kubectl expose deployment selenium-router-deployment --type=NodePort --port=4444 --target-port=4444                               
       - name: "Wait for Pods to get started"
