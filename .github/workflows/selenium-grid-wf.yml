@@ -34,4 +34,39 @@ jobs:
           echo "current-context:" $(kubectl config current-context)
           echo "environment-kubeconfig:" ${KUBECONFIG}   
       - name: "Deploy Grid 4 on minikube"
-        run: kubectl apply -f k8s-deployment-full-grid.yaml                        
+        run: kubectl apply -f k8s-deployment-full-grid.yaml 
+      - name: "Expose Router service"
+        run: kubectl expose deployment selenium-router-deployment --type=NodePort --port=4444 --target-port=4444                               
+      - name: "Wait for Pods to get started"
+        run: |
+          sleep 10
+          podsCount=$(kubectl get pods -l component=selenium-grid-4 | wc -l)
+          ctr=0
+          while [ $podsCount -lt 6 ]
+          do
+            ((ctr++))
+            if [[ $ctr -eq 30 ]]; then
+              echo "Timed out while waiting for Pods to get ready"
+              exit 1
+            fi
+            echo "Waiting for pods to get started...."
+            sleep 10
+            podsCount=$(kubectl get pods -l component=selenium-grid-4 | wc -l)
+          done
+          echo "All the pods are started"   
+      - name: Waiting for Pods to get ready
+        run: |
+          echo "Waiting for pods to attain ready state...."
+          kubectl wait --for=condition=ready pod -l name=selenium-router --timeout=300s
+          kubectl wait --for=condition=ready pod -l name=selenium-distributor --timeout=300s
+          kubectl wait --for=condition=ready pod -l name=selenium-event-bus --timeout=300s
+          kubectl wait --for=condition=ready pod -l name=selenium-chrome-node --timeout=300s
+          kubectl get pods -l component=selenium-grid-4
+          echo "All pods are in ready state now"
+      - name: Listing all the Grid 4 components
+        run: kubectl get all -l component=selenium-grid-4
+      - name: Testing the Grid
+        run: |
+          SELENIUM_GRID_URL=$(minikube service selenium-router-deployment --url)
+          echo $SELENIUM_GRID_URL
+          python3 $PWD/tests/K8sSmokeTest.py $SELENIUM_GRID_URL                         
