@@ -10,7 +10,7 @@ except ImportError:
 
 SELENIUM_GRID_URL = sys.argv[1]
 max_attempts = 12
-sleep_interval = 10
+sleep_interval = 15
 
 def get_grid_status():
     try:
