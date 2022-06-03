@@ -35,9 +35,6 @@ jobs:
       - name: "Setup Minikube"
         # https://github.com/manusa/actions-setup-minikube
         uses: manusa/actions-setup-minikube@v2.6.0
-        # with:
-        #   minikube version: "v1.13.1"
-        #   kubernetes version: "v1.19.2"
         with:
           minikube version: ${{ matrix.minikube }}  
           kubernetes version: ${{ matrix.kubernetes }}            
@@ -50,9 +47,8 @@ jobs:
           echo "current-context:" $(kubectl config current-context)
           echo "environment-kubeconfig:" ${KUBECONFIG}   
       - name: "Deploy Grid 4 on minikube"
-        # run: kubectl apply -f k8s-deployment-full-grid.yaml 
-        # run: kubectl apply -f k8s-deployment-full-grid-4.0.0-alpha-7-prerelease-20201009.yaml 
-        run: kubectl apply -f k8s-deployment-full-grid-4.0.yaml 
+        # run: kubectl apply -f k8s-deployment-full-grid-4.0.yaml 
+        run: kubectl apply -f k8s-deployment-full-grid-4.2.yaml         
       - name: "Expose Router service"
         run: kubectl expose deployment selenium-router-deployment --type=NodePort --port=4444 --target-port=4444                               
       - name: "Wait for Pods to get started"
