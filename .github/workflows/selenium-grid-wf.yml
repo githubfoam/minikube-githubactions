@@ -15,14 +15,17 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
           matrix:
-          # https://github.com/kubernetes/minikube/releases
           # By default, minikube installs the latest 
           # stable version of Kubernetes that was available at the time of the minikube release.
+          # minikube follows the Kubernetes Version and Version Skew Support Policy, 
+          # so we guarantee support for the latest build for the last 3 minor Kubernetes releases
           # https://minikube.sigs.k8s.io/docs/handbook/config/#selecting-a-kubernetes-version
+          # https://github.com/kubernetes/minikube/releases
             # minikube: [v1.13.1] #OK
             # kubernetes: [v1.19.2] #OK   
-            minikube: [v1.25.2] 
-            kubernetes: [v1.19.2]     
+            minikube: [v1.25.2]
+            # https://github.com/kubernetes/kubernetes/releases/tag/v1.24.1 
+            kubernetes: [v1.24.1]     
     steps:
       - name: Checkout
         uses: actions/checkout@v1
