@@ -26,4 +26,12 @@ jobs:
           minikube version: "v1.13.1"
           kubernetes version: "v1.19.2"
       - name: "List nodes"
-        run: kubectl get nodes          
+        run: kubectl get nodes 
+      - name: "Cluster info"
+        run: |
+          kubectl cluster-info
+          kubectl get pods -n kube-system
+          echo "current-context:" $(kubectl config current-context)
+          echo "environment-kubeconfig:" ${KUBECONFIG}   
+      - name: "Deploy Grid 4 on minikube"
+        run: kubectl apply -f k8s-deployment-full-grid.yaml                        
