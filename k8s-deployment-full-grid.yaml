@@ -41,7 +41,9 @@ spec:
     spec:
       containers:
         - name: selenium-router
-          image: selenium/router:4.0.0-alpha-7-prerelease-20201009
+        # https://hub.docker.com/r/selenium/router
+          # image: selenium/router:4.0.0-alpha-7-prerelease-20201009
+          image: selenium/router:4.2.1
           env:
             - name: SE_DISTRIBUTOR_HOST
               value: "selenium-distributor"
@@ -105,7 +107,9 @@ spec:
     spec:
       containers:
         - name: selenium-event-bus
-          image: selenium/event-bus:4.0.0-alpha-7-prerelease-20201009
+        # https://hub.docker.com/r/selenium/event-bus
+          # image: selenium/event-bus:4.0.0-alpha-7-prerelease-20201009
+          image: selenium/event-bus:4.2.1
           ports:
             - containerPort: 4442
               protocol: TCP
@@ -156,7 +160,9 @@ spec:
     spec:
       containers:
         - name: selenium-sessions
-          image: selenium/sessions:4.0.0-alpha-7-prerelease-20201009
+        # https://hub.docker.com/r/selenium/sessions
+          # image: selenium/sessions:4.0.0-alpha-7-prerelease-20201009
+          image: selenium/sessions:4.2.1
           env:
             - name: SE_EVENT_BUS_HOST
               value: "selenium-event-bus"
@@ -210,7 +216,9 @@ spec:
     spec:
       containers:
         - name: selenium-distributor
-          image: selenium/distributor:4.0.0-alpha-7-prerelease-20201009
+        # https://hub.docker.com/r/selenium/distributor
+          # image: selenium/distributor:4.0.0-alpha-7-prerelease-20201009
+          image: selenium/distributor:4.2.1
           env:
             - name: SE_EVENT_BUS_HOST
               value: "selenium-event-bus"
@@ -268,7 +276,9 @@ spec:
     spec:
       containers:
         - name: selenium-chrome-node
-          image: selenium/node-chrome:4.0.0-alpha-7-prerelease-20201009
+        # https://hub.docker.com/r/selenium/node-chrome
+          # image: selenium/node-chrome:4.0.0-alpha-7-prerelease-20201009
+          image: selenium/node-chrome:102.0
           env:
             - name: SE_EVENT_BUS_HOST
               value: "selenium-event-bus"
